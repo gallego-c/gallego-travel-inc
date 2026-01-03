@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Questionnaire - Gallego Travel Inc.</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="questionnaire-container">
+        <!-- Progress Bar -->
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+
+        <!-- Step 1: Who are you? -->
+        <div class="question-slide active" data-step="1">
+            <div class="question-content">
+                <h2>Who are you?</h2>
+                <div class="options-container">
+                    <button class="option-btn" data-value="gerard" onclick="selectIdentity('gerard')">Gerard</button>
+                    <button class="option-btn" data-value="random" onclick="selectIdentity('random')">Some random person</button>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" disabled>Previous</button>
+                <button class="btn btn-primary" onclick="nextStep()" id="next-1" disabled>Next</button>
+            </div>
+        </div>
+
+        <!-- Step 2: User Info (conditional) -->
+        <div class="question-slide" data-step="2">
+            <div class="question-content">
+                <h2 id="user-info-title">Enter your details</h2>
+                <div class="form-group" id="name-group" style="display: none;">
+                    <label for="user-name">Name</label>
+                    <input type="text" id="user-name" placeholder="Enter your name" oninput="validateUserInfo()">
+                </div>
+                <div class="form-group">
+                    <label for="user-email">Email</label>
+                    <input type="email" id="user-email" placeholder="Enter your email" oninput="validateUserInfo()">
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="prevStep()">Previous</button>
+                <button class="btn btn-primary" onclick="nextStep()" id="next-2" disabled>Next</button>
+            </div>
+        </div>
+
+        <!-- Step 3: When to travel? -->
+        <div class="question-slide" data-step="3">
+            <div class="question-content">
+                <h2>When do you plan to travel?</h2>
+                <div class="options-container">
+                    <button class="option-btn" data-value="this-month" onclick="selectTravelTime('this-month')">
+                        This month<br><span class="option-subtext">(I want to burn some money)</span>
+                    </button>
+                    <button class="option-btn" data-value="later" onclick="selectTravelTime('later')">
+                        Later in the year<br><span class="option-subtext">(I am a control freak that needs months of preparation)</span>
+                    </button>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="prevStep()">Previous</button>
+                <button class="btn btn-primary" onclick="nextStep()" id="next-3" disabled>Next</button>
+            </div>
+        </div>
+
+        <!-- Step 4: Available Dates -->
+        <div class="question-slide" data-step="4">
+            <div class="question-content">
+                <h2>Introduce at least 5 available dates</h2>
+                <p class="hint-text">Add dates when you're available to travel</p>
+                <div class="dates-container" id="dates-container">
+                    <div class="date-input-wrapper">
+                        <input type="date" class="date-input" oninput="validateDates()">
+                    </div>
+                    <div class="date-input-wrapper">
+                        <input type="date" class="date-input" oninput="validateDates()">
+                    </div>
+                    <div class="date-input-wrapper">
+                        <input type="date" class="date-input" oninput="validateDates()">
+                    </div>
+                    <div class="date-input-wrapper">
+                        <input type="date" class="date-input" oninput="validateDates()">
+                    </div>
+                    <div class="date-input-wrapper">
+                        <input type="date" class="date-input" oninput="validateDates()">
+                    </div>
+                </div>
+                <button class="btn btn-add" onclick="addDateInput()">+ Add more dates</button>
+                <p class="date-count" id="date-count">0 / 5 dates selected</p>
+            </div>
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="prevStep()">Previous</button>
+                <button class="btn btn-primary" onclick="nextStep()" id="next-4" disabled>Next</button>
+            </div>
+        </div>
+
+        <!-- Step 5: Departure Location -->
+        <div class="question-slide" data-step="5">
+            <div class="question-content">
+                <h2>Select where you are departing from</h2>
+                <div class="options-container">
+                    <button class="option-btn" data-value="barcelona" onclick="selectDeparture('barcelona')">
+                        A normal place<br><span class="option-subtext">(Barcelona)</span>
+                    </button>
+                    <button class="option-btn" data-value="foreign" onclick="selectDeparture('foreign')">
+                        A foreign country<br><span class="option-subtext">(because I have too much free time and am reckless about money)</span>
+                    </button>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="prevStep()">Previous</button>
+                <button class="btn btn-primary" onclick="nextStep()" id="next-5" disabled>Next</button>
+            </div>
+        </div>
+
+        <!-- Step 6: Foreign City Input (conditional) -->
+        <div class="question-slide" data-step="6">
+            <div class="question-content">
+                <h2>Introduce your city</h2>
+                <div class="form-group">
+                    <input type="text" id="foreign-city" placeholder="Enter your city" oninput="validateForeignCity()">
+                </div>
+                <div class="funny-message" id="barcelona-message" style="display: none;">
+                    <p>🎉 Barcelona is the best city and the page has decided to ignore your preference. 🎉</p>
+                    <p>You're departing from Barcelona now. You're welcome.</p>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="prevStep()">Previous</button>
+                <button class="btn btn-primary" onclick="nextStep()" id="next-6" disabled>Next</button>
+            </div>
+        </div>
+
+        <!-- Step 7: Select Continent -->
+        <div class="question-slide" data-step="7">
+            <div class="question-content">
+                <h2>Select the continent you want to travel to</h2>
+                <div class="options-container continent-options">
+                    <button class="option-btn" data-value="europe" onclick="selectContinent('europe')">Europe</button>
+                    <button class="option-btn disabled-option" disabled>Africa <span class="locked">🔒</span></button>
+                    <button class="option-btn disabled-option" disabled>Asia <span class="locked">🔒</span></button>
+                    <button class="option-btn disabled-option" disabled>North America <span class="locked">🔒</span></button>
+                    <button class="option-btn disabled-option" disabled>South America <span class="locked">🔒</span></button>
+                    <button class="option-btn disabled-option" disabled>Oceania <span class="locked">🔒</span></button>
+                    <button class="option-btn disabled-option" disabled>Antarctica <span class="locked">🔒</span></button>
+                </div>
+                <p class="hint-text">* Only Europe is available because we said so</p>
+            </div>
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="prevStep()">Previous</button>
+                <button class="btn btn-primary" onclick="nextStep()" id="next-7" disabled>Next</button>
+            </div>
+        </div>
+
+        <!-- Step 8: European Cities Selection -->
+        <div class="question-slide" data-step="8">
+            <div class="question-content">
+                <h2>Select the cities you want to visit</h2>
+                <p class="hint-text">All cities are pre-selected. Click to deselect any you don't want to visit.</p>
+                <div class="cities-grid" id="cities-grid">
+                    <div class="city-card selected" data-city="paris" onclick="toggleCity(this)">
+                        <img src="images/paris.png" alt="Paris">
+                        <span class="city-name">Paris</span>
+                        <span class="city-status">✓</span>
+                    </div>
+                    <div class="city-card selected" data-city="rome" onclick="toggleCity(this)">
+                        <img src="images/rome.png" alt="Rome">
+                        <span class="city-name">Rome</span>
+                        <span class="city-status">✓</span>
+                    </div>
+                    <div class="city-card selected" data-city="amsterdam" onclick="toggleCity(this)">
+                        <img src="images/amsterdam.png" alt="Amsterdam">
+                        <span class="city-name">Amsterdam</span>
+                        <span class="city-status">✓</span>
+                    </div>
+                    <div class="city-card selected" data-city="london" onclick="toggleCity(this)">
+                        <img src="images/london.png" alt="London">
+                        <span class="city-name">London</span>
+                        <span class="city-status">✓</span>
+                    </div>
+                    <div class="city-card selected" data-city="prague" onclick="toggleCity(this)">
+                        <img src="images/prague.png" alt="Prague">
+                        <span class="city-name">Prague</span>
+                        <span class="city-status">✓</span>
+                    </div>
+                    <div class="city-card selected" data-city="vienna" onclick="toggleCity(this)">
+                        <img src="images/vienna.png" alt="Vienna">
+                        <span class="city-name">Vienna</span>
+                        <span class="city-status">✓</span>
+                    </div>
+                    <div class="city-card selected" data-city="lisbon" onclick="toggleCity(this)">
+                        <img src="images/lisbon.png" alt="Lisbon">
+                        <span class="city-name">Lisbon</span>
+                        <span class="city-status">✓</span>
+                    </div>
+                    <div class="city-card selected" data-city="berlin" onclick="toggleCity(this)">
+                        <img src="images/berlin.png" alt="Berlin">
+                        <span class="city-name">Berlin</span>
+                        <span class="city-status">✓</span>
+                    </div>
+                    <div class="city-card selected" data-city="athens" onclick="toggleCity(this)">
+                        <img src="images/athens.png" alt="Athens">
+                        <span class="city-name">Athens</span>
+                        <span class="city-status">✓</span>
+                    </div>
+                    <div class="city-card selected" data-city="dublin" onclick="toggleCity(this)">
+                        <img src="images/dublin.png" alt="Dublin">
+                        <span class="city-name">Dublin</span>
+                        <span class="city-status">✓</span>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="prevStep()">Previous</button>
+                <button class="btn btn-primary" onclick="nextStep()" id="next-8">Next</button>
+            </div>
+        </div>
+
+        <!-- Step 9: Number of Travelers -->
+        <div class="question-slide" data-step="9">
+            <div class="question-content">
+                <h2>How many travelers?</h2>
+                <div class="options-container">
+                    <button class="option-btn" data-value="1-2" onclick="selectTravelers('1-2')">1-2</button>
+                    <button class="option-btn" data-value="2+" onclick="selectTravelers('2+')">2 or more</button>
+                </div>
+                <div class="warning-message" id="travelers-warning" style="display: none;">
+                    <p>⚠️ Take into account Gallego Travel Inc does not cover this option and you will be redirected ⚠️</p>
+                    <p>(Just kidding, we'll continue anyway)</p>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="prevStep()">Previous</button>
+                <button class="btn btn-primary" onclick="nextStep()" id="next-9" disabled>Next</button>
+            </div>
+        </div>
+
+        <!-- Step 10: Adventure Type -->
+        <div class="question-slide" data-step="10">
+            <div class="question-content">
+                <h2>Select your adventure type</h2>
+                <div class="options-container">
+                    <button class="option-btn adventure-btn selected" data-value="surprise" onclick="selectAdventure('surprise')">
+                        🎁 Surprise!
+                        <span class="option-subtext">Let us decide everything for you</span>
+                    </button>
+                </div>
+                <p class="hint-text">* This is your only option. Embrace the chaos.</p>
+            </div>
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="prevStep()">Previous</button>
+                <button class="btn btn-primary" onclick="finishQuestionnaire()" id="next-10">Finish</button>
+            </div>
+        </div>
+
+        <!-- Step 11: Final Message -->
+        <div class="question-slide" data-step="11">
+            <div class="question-content final-content">
+                <div class="success-icon">🎉</div>
+                <h2>Thank you for completing the questionnaire!</h2>
+                <p class="final-message">You will receive an email in about 3 days with more details about your surprise adventure...</p>
+                <p class="final-message-small">...if our personnel is not too stressed out about the impending doom of exams.</p>
+                <p class="final-message-small">We appreciate your patience and your questionable life choices that led you here.</p>
+                <a href="index.html" class="btn btn-primary btn-large">Return to Main Page</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/questionnaire.js"></script>
+</body>
+</html>

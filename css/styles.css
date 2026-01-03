@@ -1,0 +1,796 @@
+/* ==========================================
+   Gallego Travel Inc. - Styles
+   Waynabox-inspired minimalist design
+   ========================================== */
+
+/* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #ffffff;
+    color: #333333;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* ==========================================
+   Typography
+   ========================================== */
+h1, h2, h3 {
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+h1 {
+    font-size: 4rem;
+    letter-spacing: -2px;
+}
+
+h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+p {
+    font-size: 1.1rem;
+    color: #555555;
+    margin-bottom: 1rem;
+}
+
+/* ==========================================
+   Buttons
+   ========================================== */
+.btn {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.btn-primary:disabled {
+    background: #cccccc;
+    box-shadow: none;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #667eea;
+    border: 2px solid #667eea;
+}
+
+.btn-secondary:hover {
+    background: #667eea;
+    color: #ffffff;
+}
+
+.btn-secondary:disabled {
+    border-color: #cccccc;
+    color: #cccccc;
+    cursor: not-allowed;
+}
+
+.btn-add {
+    background: transparent;
+    color: #667eea;
+    border: 2px dashed #667eea;
+    padding: 0.75rem 1.5rem;
+    margin-top: 1rem;
+}
+
+.btn-add:hover {
+    background: rgba(102, 126, 234, 0.1);
+}
+
+.btn-large {
+    padding: 1.25rem 3rem;
+    font-size: 1.25rem;
+}
+
+/* ==========================================
+   Hero Section
+   ========================================== */
+.hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+    position: relative;
+}
+
+.hero-content {
+    z-index: 1;
+}
+
+.hero-title {
+    margin-bottom: 1rem;
+    animation: fadeInUp 1s ease;
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    color: #666666;
+    margin-bottom: 2.5rem;
+    animation: fadeInUp 1s ease 0.2s both;
+}
+
+.hero .btn {
+    animation: fadeInUp 1s ease 0.4s both;
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: bounce 2s infinite;
+}
+
+.scroll-indicator span {
+    font-size: 0.9rem;
+    color: #888888;
+    margin-bottom: 0.5rem;
+}
+
+.scroll-arrow {
+    width: 30px;
+    height: 30px;
+    border-right: 3px solid #888888;
+    border-bottom: 3px solid #888888;
+    transform: rotate(45deg);
+}
+
+/* ==========================================
+   Mission Section
+   ========================================== */
+.mission {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+}
+
+.mission-image {
+    height: 100%;
+    min-height: 50vh;
+    overflow: hidden;
+}
+
+.mission-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.mission-content {
+    padding: 4rem;
+    max-width: 600px;
+}
+
+.mission-content h2 {
+    position: relative;
+    display: inline-block;
+}
+
+.mission-content h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 2px;
+}
+
+/* ==========================================
+   About Section
+   ========================================== */
+.about {
+    padding: 6rem 2rem;
+    background: #fafafa;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 4rem;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 2px;
+}
+
+.team-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 3rem;
+    padding: 2rem;
+}
+
+.team-card {
+    background: #ffffff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.team-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+.team-image {
+    height: 300px;
+    overflow: hidden;
+}
+
+.team-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.team-card:hover .team-image img {
+    transform: scale(1.05);
+}
+
+.team-info {
+    padding: 2rem;
+}
+
+.team-role {
+    display: inline-block;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #ffffff;
+    padding: 0.3rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.team-info p {
+    color: #666666;
+    font-size: 1rem;
+}
+
+/* ==========================================
+   Footer
+   ========================================== */
+.footer {
+    background: #1a1a1a;
+    color: #ffffff;
+    padding: 3rem 2rem;
+    text-align: center;
+}
+
+.footer p {
+    color: #aaaaaa;
+    margin-bottom: 0.5rem;
+}
+
+.footer p:last-child {
+    font-style: italic;
+    color: #888888;
+}
+
+/* ==========================================
+   Questionnaire Styles
+   ========================================== */
+.questionnaire-container {
+    min-height: 100vh;
+    position: relative;
+}
+
+.progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: #e0e0e0;
+    z-index: 1000;
+}
+
+.progress {
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    width: 0%;
+    transition: width 0.5s ease;
+}
+
+.question-slide {
+    display: none;
+    min-height: 100vh;
+    padding: 4rem 2rem;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.question-slide.active {
+    display: flex;
+    animation: fadeIn 0.5s ease;
+}
+
+.question-content {
+    max-width: 800px;
+    width: 100%;
+    text-align: center;
+}
+
+.question-content h2 {
+    margin-bottom: 2rem;
+}
+
+/* Options Buttons */
+.options-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.continent-options {
+    flex-direction: column;
+    align-items: center;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.option-btn {
+    background: #ffffff;
+    border: 3px solid #e0e0e0;
+    border-radius: 15px;
+    padding: 1.5rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+    min-width: 200px;
+}
+
+.option-btn:hover:not(.disabled-option):not(.selected) {
+    border-color: #667eea;
+    background: rgba(102, 126, 234, 0.05);
+}
+
+.option-btn.selected {
+    border-color: #667eea;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #ffffff;
+}
+
+.option-btn.disabled-option {
+    background: #f5f5f5;
+    color: #aaaaaa;
+    cursor: not-allowed;
+}
+
+.option-subtext {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 400;
+    margin-top: 0.5rem;
+    opacity: 0.8;
+}
+
+.locked {
+    margin-left: 0.5rem;
+}
+
+.adventure-btn {
+    min-width: 300px;
+    padding: 2rem 3rem;
+    font-size: 1.5rem;
+}
+
+/* Form Inputs */
+.form-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #333333;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+/* Dates Container */
+.dates-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.date-input-wrapper {
+    flex: 0 0 auto;
+}
+
+.date-input {
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.date-input:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.date-input:valid {
+    border-color: #667eea;
+}
+
+.date-count {
+    font-size: 0.9rem;
+    color: #888888;
+    margin-top: 1rem;
+}
+
+.hint-text {
+    font-size: 0.95rem;
+    color: #888888;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+}
+
+/* Cities Grid */
+.cities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.city-card {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.city-card img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.city-card .city-name {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.7), transparent);
+    color: #ffffff;
+    padding: 0.75rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.city-card .city-status {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: #4CAF50;
+    color: #ffffff;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.city-card.selected {
+    border: 3px solid #4CAF50;
+}
+
+.city-card:not(.selected) {
+    border: 3px solid transparent;
+    opacity: 0.6;
+}
+
+.city-card:not(.selected) img {
+    filter: grayscale(50%);
+}
+
+.city-card:not(.selected) .city-status {
+    background: #e0e0e0;
+    color: #888888;
+}
+
+.city-card:not(.selected) .city-status::before {
+    content: '✗';
+}
+
+.city-card:not(.selected) .city-status::after {
+    content: none;
+}
+
+.city-card.selected .city-status::before {
+    content: '✓';
+}
+
+.city-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Warning & Funny Messages */
+.warning-message,
+.funny-message {
+    background: #fff3cd;
+    border: 2px solid #ffc107;
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    animation: fadeIn 0.5s ease;
+}
+
+.warning-message p,
+.funny-message p {
+    color: #856404;
+    margin-bottom: 0.5rem;
+}
+
+.warning-message p:last-child,
+.funny-message p:last-child {
+    margin-bottom: 0;
+    font-style: italic;
+}
+
+.funny-message {
+    background: #d4edda;
+    border-color: #28a745;
+}
+
+.funny-message p {
+    color: #155724;
+}
+
+/* Navigation Buttons */
+.nav-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 3rem;
+}
+
+/* Final Content */
+.final-content {
+    max-width: 600px;
+}
+
+.success-icon {
+    font-size: 5rem;
+    margin-bottom: 1.5rem;
+    animation: bounce 1s ease infinite;
+}
+
+.final-message {
+    font-size: 1.2rem;
+    color: #555555;
+    margin-bottom: 1.5rem;
+}
+
+.final-message-small {
+    font-size: 1rem;
+    color: #888888;
+    font-style: italic;
+}
+
+/* ==========================================
+   Animations
+   ========================================== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-15px);
+    }
+    60% {
+        transform: translateY(-7px);
+    }
+}
+
+/* ==========================================
+   Responsive Design
+   ========================================== */
+@media (max-width: 992px) {
+    h1 {
+        font-size: 3rem;
+    }
+    
+    h2 {
+        font-size: 2rem;
+    }
+    
+    .mission {
+        grid-template-columns: 1fr;
+    }
+    
+    .mission-image {
+        height: 50vh;
+    }
+    
+    .mission-content {
+        padding: 3rem 2rem;
+    }
+    
+    .team-container {
+        grid-template-columns: 1fr;
+        max-width: 500px;
+    }
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.5rem;
+    }
+    
+    h2 {
+        font-size: 1.75rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .btn {
+        padding: 0.875rem 2rem;
+        font-size: 1rem;
+    }
+    
+    .options-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .option-btn {
+        width: 100%;
+        max-width: 350px;
+    }
+    
+    .cities-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .nav-buttons {
+        flex-direction: column-reverse;
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .nav-buttons .btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .question-slide {
+        padding: 2rem 1rem;
+    }
+    
+    .cities-grid {
+        grid-template-columns: 1fr;
+        max-width: 200px;
+    }
+    
+    .team-container {
+        padding: 1rem;
+    }
+    
+    .team-card {
+        margin: 0 -0.5rem;
+    }
+}
