@@ -1,44 +1,54 @@
 # Gallego Travel Inc.
 
-A Waynabox-style travel organizer website with an interactive questionnaire. Features a modern red color scheme, bilingual support (English/Spanish), and server-side data persistence.
+A Waynabox-style travel organizer website with an interactive questionnaire. Features a modern red color scheme, bilingual support (English/Spanish), and Google Sheets integration for data storage.
 
 ## Features
 
 - 🎨 Modern, minimalist design with red color scheme
 - 🌍 Bilingual: English/Spanish with language switcher
 - 📝 Multi-step questionnaire with validation
-- 📊 Server-side CSV data storage
+- 📊 Google Sheets integration (no backend server needed!)
 - 📱 Fully responsive design
+- 🚀 Deploy to GitHub Pages
 
-## Setup & Installation
+## Quick Start
 
-### 1. Install Dependencies
+### Option 1: Deploy to GitHub Pages (Recommended)
 
-```bash
-npm install
-```
+1. **Set up Google Sheets** (see [GOOGLE_SHEETS_SETUP.md](GOOGLE_SHEETS_SETUP.md))
+   - Create a Google Sheet
+   - Set up Apps Script
+   - Get your web app URL
 
-This will install:
-- `express` - Web server framework
-- `cors` - Enable cross-origin requests
-- `nodemon` - Auto-restart during development (optional)
+2. **Update the configuration**
+   - Open `js/questionnaire.js`
+   - Replace `YOUR_GOOGLE_SCRIPT_URL_HERE` with your Google Apps Script URL
 
-### 2. Start the Server
+3. **Deploy to GitHub Pages**
+   ```bash
+   git add .
+   git commit -m "Configure Google Sheets"
+   git push
+   ```
+   - Go to repository Settings > Pages
+   - Select `main` branch as source
+   - Your site will be live at `https://gallego-c.github.io/gallego-travel-inc/`
 
-```bash
-npm start
-```
+### Option 2: Local Development with Node.js Server (Legacy)
 
-Server will run at `http://localhost:3000`
+If you want to run locally with the old CSV backend:
 
-For development with auto-restart:
-```bash
-npm run dev
-```
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-### 3. Open the Website
+2. Start the server:
+   ```bash
+   npm start
+   ```
 
-Visit `http://localhost:3000` in your browser
+3. Open `http://localhost:3000` in your browser
 
 ## Project Structure
 
@@ -46,8 +56,8 @@ Visit `http://localhost:3000` in your browser
 gallego-travel-inc/
 ├── index.html              # Landing page
 ├── questionnaire.html      # Multi-step questionnaire
-├── server.js               # Express backend server
-├── package.json            # Node.js dependencies
+├── GOOGLE_SHEETS_SETUP.md  # Google Sheets setup guide
+├── .github/workflows/      # GitHub Actions for deployment
 ├── css/
 │   └── styles.css          # Waynabox-inspired styling
 ├── js/

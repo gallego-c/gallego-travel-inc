@@ -350,50 +350,55 @@ function selectAdventure(value) {
 }
 
 // ==========================================
-// Finish & Save to Server
+// Finish & Save to Google Sheets
 // ==========================================
 
+// IMPORTANT: Replace this URL with your Google Apps Script web app URL
+// See GOOGLE_SHEETS_SETUP.md for instructions
+const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwVmyUhPC9tk42iIXZ1L3EMXyXCnB9DZlos8zRCc4O6QH5vO6VWI6ErqBszKYt3i0dRww/exec';
+
 function finishQuestionnaire() {
-    // Save data to server
-    saveToServer();
+    // Save data to Google Sheets
+    saveToGoogleSheets();
 }
 
-async function saveToServer() {
+async function saveToGoogleSheets() {
     try {
-        // Show loading state (optional)
+        // Validate that Google Sheets URL is configured
+        if (GOOGLE_SHEETS_URL === 'YOUR_GOOGLE_SCRIPT_URL_HERE') {
+            console.error('❌ Google Sheets URL not configured!');
+            alert('Error: Google Sheets integration not set up. Please check GOOGLE_SHEETS_SETUP.md for instructions.');
+            return;
+        }
+        
+        // Show loading state
         const finishBtn = document.getElementById('next-10');
         const originalText = finishBtn.textContent;
         finishBtn.textContent = 'Saving...';
         finishBtn.disabled = true;
         
-        // Send data to server
-        const response = await fetch('/api/save-response', {
+        // Send data to Google Sheets
+        const response = await fetch(GOOGLE_SHEETS_URL, {
             method: 'POST',
+            mode: 'no-cors', // Google Apps Script requires no-cors mode
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(formData)
         });
         
-        const result = await response.json();
+        // Note: no-cors mode doesn't allow reading the response
+        // We assume success if no error is thrown
+        console.log('✅ Response sent to Google Sheets!');
+        console.log('Form Data:', formData);
         
-        if (result.success) {
-            console.log('✅ Response saved successfully!');
-            console.log('Form Data:', formData);
-            
-            // Show final message
-            currentStep = 11;
-            showStep(11);
-        } else {
-            console.error('❌ Failed to save response:', result.message);
-            alert('Failed to save your response. Please try again.');
-            finishBtn.textContent = originalText;
-            finishBtn.disabled = false;
-        }
+        // Show final message
+        currentStep = 11;
+        showStep(11);
         
     } catch (error) {
-        console.error('❌ Error connecting to server:', error);
-        alert('Error: Could not connect to server. Make sure the server is running (npm start).');
+        console.error('❌ Error saving to Google Sheets:', error);
+        alert('Error: Could not save your response. Please check your internet connection and try again.');
         
         // Re-enable button
         const finishBtn = document.getElementById('next-10');
