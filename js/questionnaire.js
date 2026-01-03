@@ -104,11 +104,13 @@ function selectIdentity(value) {
     
     if (value === 'gerard') {
         nameGroup.style.display = 'none';
-        userInfoTitle.textContent = 'Welcome back, Gerard! Confirm your email';
+        userInfoTitle.setAttribute('data-i18n', 'step2TitleGerard');
+        userInfoTitle.textContent = translations[currentLang].step2TitleGerard;
         formData.name = 'Gerard';
     } else {
         nameGroup.style.display = 'block';
-        userInfoTitle.textContent = 'Tell us about yourself';
+        userInfoTitle.setAttribute('data-i18n', 'step2TitleRandom');
+        userInfoTitle.textContent = translations[currentLang].step2TitleRandom;
         formData.name = '';
     }
     
@@ -164,39 +166,50 @@ function selectTravelTime(value) {
 }
 
 // ==========================================
-// Step 4: Available Dates
+// Step 4: Available Date Ranges
 // ==========================================
 
 function addDateInput() {
     const container = document.getElementById('dates-container');
     const wrapper = document.createElement('div');
-    wrapper.className = 'date-input-wrapper';
-    wrapper.innerHTML = '<input type="date" class="date-input" oninput="validateDates()">';
+    wrapper.className = 'date-range-wrapper';
+    wrapper.innerHTML = `
+        <label data-i18n="step4StartDate">${translations[currentLang].step4StartDate}</label>
+        <input type="date" class="date-input date-start" oninput="validateDates()">
+        <label data-i18n="step4EndDate">${translations[currentLang].step4EndDate}</label>
+        <input type="date" class="date-input date-end" oninput="validateDates()">
+    `;
     container.appendChild(wrapper);
 }
 
 function validateDates() {
-    const dateInputs = document.querySelectorAll('.date-input');
-    const filledDates = [];
+    const dateRanges = document.querySelectorAll('.date-range-wrapper');
+    const filledRanges = [];
     
-    dateInputs.forEach(input => {
-        if (input.value) {
-            filledDates.push(input.value);
+    dateRanges.forEach(wrapper => {
+        const startInput = wrapper.querySelector('.date-start');
+        const endInput = wrapper.querySelector('.date-end');
+        if (startInput.value && endInput.value) {
+            filledRanges.push({
+                start: startInput.value,
+                end: endInput.value
+            });
         }
     });
     
-    formData.availableDates = filledDates;
+    formData.availableDates = filledRanges;
+    
+    const dateCountNum = document.getElementById('date-count-num');
+    dateCountNum.textContent = `${filledRanges.length} / 5`;
     
     const dateCount = document.getElementById('date-count');
-    dateCount.textContent = `${filledDates.length} / 5 dates selected`;
-    
-    if (filledDates.length >= 5) {
+    if (filledRanges.length >= 5) {
         dateCount.style.color = '#4CAF50';
     } else {
         dateCount.style.color = '#888888';
     }
     
-    document.getElementById('next-4').disabled = filledDates.length < 5;
+    document.getElementById('next-4').disabled = filledRanges.length < 5;
 }
 
 // ==========================================
@@ -315,74 +328,54 @@ function selectAdventure(value) {
 }
 
 // ==========================================
-// Finish & CSV Generation
+// Finish & Save to Server
 // ==========================================
 
 function finishQuestionnaire() {
-    // Generate and download CSV
-    generateCSV();
-    
-    // Show final message
-    currentStep = 11;
-    showStep(11);
+    // Save data to server
+    saveToServer();
 }
 
-function generateCSV() {
-    // Create CSV content
-    const headers = [
-        'Name',
-        'Email',
-        'Identity Type',
-        'Travel Time',
-        'Available Dates',
-        'Departure City',
-        'Foreign City Entered',
-        'Continent',
-        'Selected Cities',
-        'Number of Travelers',
-        'Adventure Type',
-        'Submission Date'
-    ];
-    
-    const values = [
-        formData.name,
-        formData.email,
-        formData.identity,
-        formData.travelTime,
-        formData.availableDates.join('; '),
-        formData.departure,
-        formData.foreignCity || 'N/A',
-        formData.continent,
-        formData.selectedCities.map(c => c.charAt(0).toUpperCase() + c.slice(1)).join('; '),
-        formData.travelers,
-        formData.adventureType,
-        new Date().toISOString()
-    ];
-    
-    // Escape values for CSV
-    const escapedValues = values.map(val => {
-        if (typeof val === 'string' && (val.includes(',') || val.includes('"') || val.includes('\n'))) {
-            return `"${val.replace(/"/g, '""')}"`;
+async function saveToServer() {
+    try {
+        // Show loading state (optional)
+        const finishBtn = document.getElementById('next-10');
+        const originalText = finishBtn.textContent;
+        finishBtn.textContent = 'Saving...';
+        finishBtn.disabled = true;
+        
+        // Send data to server
+        const response = await fetch('http://localhost:3000/api/save-response', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            console.log('✅ Response saved successfully!');
+            console.log('Form Data:', formData);
+            
+            // Show final message
+            currentStep = 11;
+            showStep(11);
+        } else {
+            console.error('❌ Failed to save response:', result.message);
+            alert('Failed to save your response. Please try again.');
+            finishBtn.textContent = originalText;
+            finishBtn.disabled = false;
         }
-        return val;
-    });
-    
-    const csvContent = headers.join(',') + '\n' + escapedValues.join(',');
-    
-    // Create and download file
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
-    const url = URL.createObjectURL(blob);
-    
-    link.setAttribute('href', url);
-    link.setAttribute('download', `travel_questionnaire_${formData.name.replace(/\s+/g, '_')}_${Date.now()}.csv`);
-    link.style.visibility = 'hidden';
-    
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    
-    // Also log to console for debugging
-    console.log('Form Data:', formData);
-    console.log('CSV Generated:', csvContent);
+        
+    } catch (error) {
+        console.error('❌ Error connecting to server:', error);
+        alert('Error: Could not connect to server. Make sure the server is running (npm start).');
+        
+        // Re-enable button
+        const finishBtn = document.getElementById('next-10');
+        finishBtn.textContent = translations[currentLang].btnFinish;
+        finishBtn.disabled = false;
+    }
 }

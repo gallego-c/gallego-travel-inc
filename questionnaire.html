@@ -8,6 +8,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <button class="btn-lang" id="lang-btn" onclick="switchLanguage()">Español</button>
+    </div>
+
     <div class="questionnaire-container">
         <!-- Progress Bar -->
         <div class="progress-bar">
@@ -17,150 +22,165 @@
         <!-- Step 1: Who are you? -->
         <div class="question-slide active" data-step="1">
             <div class="question-content">
-                <h2>Who are you?</h2>
+                <h2 data-i18n="step1Question">Who are you?</h2>
                 <div class="options-container">
-                    <button class="option-btn" data-value="gerard" onclick="selectIdentity('gerard')">Gerard</button>
-                    <button class="option-btn" data-value="random" onclick="selectIdentity('random')">Some random person</button>
+                    <button class="option-btn" data-value="gerard" onclick="selectIdentity('gerard')" data-i18n="step1Option1">Gerard</button>
+                    <button class="option-btn" data-value="random" onclick="selectIdentity('random')" data-i18n="step1Option2">Some random person</button>
                 </div>
             </div>
             <div class="nav-buttons">
-                <button class="btn btn-secondary" disabled>Previous</button>
-                <button class="btn btn-primary" onclick="nextStep()" id="next-1" disabled>Next</button>
+                <button class="btn btn-secondary" disabled data-i18n="btnPrevious">Previous</button>
+                <button class="btn btn-primary" onclick="nextStep()" id="next-1" disabled data-i18n="btnNext">Next</button>
             </div>
         </div>
 
         <!-- Step 2: User Info (conditional) -->
         <div class="question-slide" data-step="2">
             <div class="question-content">
-                <h2 id="user-info-title">Enter your details</h2>
+                <h2 id="user-info-title" data-i18n="step2TitleRandom">Enter your details</h2>
                 <div class="form-group" id="name-group" style="display: none;">
-                    <label for="user-name">Name</label>
-                    <input type="text" id="user-name" placeholder="Enter your name" oninput="validateUserInfo()">
+                    <label for="user-name" data-i18n="step2Name">Name</label>
+                    <input type="text" id="user-name" data-i18n="step2NamePlaceholder" placeholder="Enter your name" oninput="validateUserInfo()">
                 </div>
                 <div class="form-group">
-                    <label for="user-email">Email</label>
-                    <input type="email" id="user-email" placeholder="Enter your email" oninput="validateUserInfo()">
+                    <label for="user-email" data-i18n="step2Email">Email</label>
+                    <input type="email" id="user-email" data-i18n="step2EmailPlaceholder" placeholder="Enter your email" oninput="validateUserInfo()">
                 </div>
             </div>
             <div class="nav-buttons">
-                <button class="btn btn-secondary" onclick="prevStep()">Previous</button>
-                <button class="btn btn-primary" onclick="nextStep()" id="next-2" disabled>Next</button>
+                <button class="btn btn-secondary" onclick="prevStep()" data-i18n="btnPrevious">Previous</button>
+                <button class="btn btn-primary" onclick="nextStep()" id="next-2" disabled data-i18n="btnNext">Next</button>
             </div>
         </div>
 
         <!-- Step 3: When to travel? -->
         <div class="question-slide" data-step="3">
             <div class="question-content">
-                <h2>When do you plan to travel?</h2>
+                <h2 data-i18n="step3Question">When do you plan to travel?</h2>
                 <div class="options-container">
                     <button class="option-btn" data-value="this-month" onclick="selectTravelTime('this-month')">
-                        This month<br><span class="option-subtext">(I want to burn some money)</span>
+                        <span data-i18n="step3Option1">This month</span><br><span class="option-subtext" data-i18n="step3Option1Sub">(I want to burn some money)</span>
                     </button>
                     <button class="option-btn" data-value="later" onclick="selectTravelTime('later')">
-                        Later in the year<br><span class="option-subtext">(I am a control freak that needs months of preparation)</span>
+                        <span data-i18n="step3Option2">Later in the year</span><br><span class="option-subtext" data-i18n="step3Option2Sub">(I am a control freak that needs months of preparation)</span>
                     </button>
                 </div>
             </div>
             <div class="nav-buttons">
-                <button class="btn btn-secondary" onclick="prevStep()">Previous</button>
-                <button class="btn btn-primary" onclick="nextStep()" id="next-3" disabled>Next</button>
+                <button class="btn btn-secondary" onclick="prevStep()" data-i18n="btnPrevious">Previous</button>
+                <button class="btn btn-primary" onclick="nextStep()" id="next-3" disabled data-i18n="btnNext">Next</button>
             </div>
         </div>
 
-        <!-- Step 4: Available Dates -->
+        <!-- Step 4: Available Date Ranges -->
         <div class="question-slide" data-step="4">
             <div class="question-content">
-                <h2>Introduce at least 5 available dates</h2>
-                <p class="hint-text">Add dates when you're available to travel</p>
+                <h2 data-i18n="step4Question">Introduce at least 5 available date ranges</h2>
+                <p class="hint-text" data-i18n="step4Hint">Add date ranges when you're available to travel</p>
                 <div class="dates-container" id="dates-container">
-                    <div class="date-input-wrapper">
-                        <input type="date" class="date-input" oninput="validateDates()">
+                    <div class="date-range-wrapper">
+                        <label data-i18n="step4StartDate">Start Date</label>
+                        <input type="date" class="date-input date-start" oninput="validateDates()">
+                        <label data-i18n="step4EndDate">End Date</label>
+                        <input type="date" class="date-input date-end" oninput="validateDates()">
                     </div>
-                    <div class="date-input-wrapper">
-                        <input type="date" class="date-input" oninput="validateDates()">
+                    <div class="date-range-wrapper">
+                        <label data-i18n="step4StartDate">Start Date</label>
+                        <input type="date" class="date-input date-start" oninput="validateDates()">
+                        <label data-i18n="step4EndDate">End Date</label>
+                        <input type="date" class="date-input date-end" oninput="validateDates()">
                     </div>
-                    <div class="date-input-wrapper">
-                        <input type="date" class="date-input" oninput="validateDates()">
+                    <div class="date-range-wrapper">
+                        <label data-i18n="step4StartDate">Start Date</label>
+                        <input type="date" class="date-input date-start" oninput="validateDates()">
+                        <label data-i18n="step4EndDate">End Date</label>
+                        <input type="date" class="date-input date-end" oninput="validateDates()">
                     </div>
-                    <div class="date-input-wrapper">
-                        <input type="date" class="date-input" oninput="validateDates()">
+                    <div class="date-range-wrapper">
+                        <label data-i18n="step4StartDate">Start Date</label>
+                        <input type="date" class="date-input date-start" oninput="validateDates()">
+                        <label data-i18n="step4EndDate">End Date</label>
+                        <input type="date" class="date-input date-end" oninput="validateDates()">
                     </div>
-                    <div class="date-input-wrapper">
-                        <input type="date" class="date-input" oninput="validateDates()">
+                    <div class="date-range-wrapper">
+                        <label data-i18n="step4StartDate">Start Date</label>
+                        <input type="date" class="date-input date-start" oninput="validateDates()">
+                        <label data-i18n="step4EndDate">End Date</label>
+                        <input type="date" class="date-input date-end" oninput="validateDates()">
                     </div>
                 </div>
-                <button class="btn btn-add" onclick="addDateInput()">+ Add more dates</button>
-                <p class="date-count" id="date-count">0 / 5 dates selected</p>
+                <button class="btn btn-add" onclick="addDateInput()" data-i18n="step4AddButton">+ Add more date ranges</button>
+                <p class="date-count" id="date-count"><span id="date-count-num">0 / 5</span> <span data-i18n="step4Count">date ranges selected</span></p>
             </div>
             <div class="nav-buttons">
-                <button class="btn btn-secondary" onclick="prevStep()">Previous</button>
-                <button class="btn btn-primary" onclick="nextStep()" id="next-4" disabled>Next</button>
+                <button class="btn btn-secondary" onclick="prevStep()" data-i18n="btnPrevious">Previous</button>
+                <button class="btn btn-primary" onclick="nextStep()" id="next-4" disabled data-i18n="btnNext">Next</button>
             </div>
         </div>
 
         <!-- Step 5: Departure Location -->
         <div class="question-slide" data-step="5">
             <div class="question-content">
-                <h2>Select where you are departing from</h2>
+                <h2 data-i18n="step5Question">Select where you are departing from</h2>
                 <div class="options-container">
                     <button class="option-btn" data-value="barcelona" onclick="selectDeparture('barcelona')">
-                        A normal place<br><span class="option-subtext">(Barcelona)</span>
+                        <span data-i18n="step5Option1">A normal place</span><br><span class="option-subtext" data-i18n="step5Option1Sub">(Barcelona)</span>
                     </button>
                     <button class="option-btn" data-value="foreign" onclick="selectDeparture('foreign')">
-                        A foreign country<br><span class="option-subtext">(because I have too much free time and am reckless about money)</span>
+                        <span data-i18n="step5Option2">A foreign country</span><br><span class="option-subtext" data-i18n="step5Option2Sub">(because I have too much free time and am reckless about money)</span>
                     </button>
                 </div>
             </div>
             <div class="nav-buttons">
-                <button class="btn btn-secondary" onclick="prevStep()">Previous</button>
-                <button class="btn btn-primary" onclick="nextStep()" id="next-5" disabled>Next</button>
+                <button class="btn btn-secondary" onclick="prevStep()" data-i18n="btnPrevious">Previous</button>
+                <button class="btn btn-primary" onclick="nextStep()" id="next-5" disabled data-i18n="btnNext">Next</button>
             </div>
         </div>
 
         <!-- Step 6: Foreign City Input (conditional) -->
         <div class="question-slide" data-step="6">
             <div class="question-content">
-                <h2>Introduce your city</h2>
+                <h2 data-i18n="step6Question">Introduce your city</h2>
                 <div class="form-group">
-                    <input type="text" id="foreign-city" placeholder="Enter your city" oninput="validateForeignCity()">
+                    <input type="text" id="foreign-city" data-i18n="step6Placeholder" placeholder="Enter your city" oninput="validateForeignCity()">
                 </div>
                 <div class="funny-message" id="barcelona-message" style="display: none;">
-                    <p>🎉 Barcelona is the best city and the page has decided to ignore your preference. 🎉</p>
-                    <p>You're departing from Barcelona now. You're welcome.</p>
+                    <p data-i18n="step6Message1">🎉 Barcelona is the best city and the page has decided to ignore your preference. 🎉</p>
+                    <p data-i18n="step6Message2">You're departing from Barcelona now. You're welcome.</p>
                 </div>
             </div>
             <div class="nav-buttons">
-                <button class="btn btn-secondary" onclick="prevStep()">Previous</button>
-                <button class="btn btn-primary" onclick="nextStep()" id="next-6" disabled>Next</button>
+                <button class="btn btn-secondary" onclick="prevStep()" data-i18n="btnPrevious">Previous</button>
+                <button class="btn btn-primary" onclick="nextStep()" id="next-6" disabled data-i18n="btnNext">Next</button>
             </div>
         </div>
 
         <!-- Step 7: Select Continent -->
         <div class="question-slide" data-step="7">
             <div class="question-content">
-                <h2>Select the continent you want to travel to</h2>
-                <div class="options-container continent-options">
-                    <button class="option-btn" data-value="europe" onclick="selectContinent('europe')">Europe</button>
-                    <button class="option-btn disabled-option" disabled>Africa <span class="locked">🔒</span></button>
-                    <button class="option-btn disabled-option" disabled>Asia <span class="locked">🔒</span></button>
-                    <button class="option-btn disabled-option" disabled>North America <span class="locked">🔒</span></button>
-                    <button class="option-btn disabled-option" disabled>South America <span class="locked">🔒</span></button>
-                    <button class="option-btn disabled-option" disabled>Oceania <span class="locked">🔒</span></button>
-                    <button class="option-btn disabled-option" disabled>Antarctica <span class="locked">🔒</span></button>
+                <h2 data-i18n="step7Question">Select the continent you want to travel to</h2>
+                <div class="options-container">
+                    <button class="option-btn" data-value="europe" onclick="selectContinent('europe')" data-i18n="step7Europe">Europe</button>
+                    <button class="option-btn disabled-option" disabled><span data-i18n="step7Africa">Africa</span> <span class="locked">🔒</span></button>
+                    <button class="option-btn disabled-option" disabled><span data-i18n="step7Asia">Asia</span> <span class="locked">🔒</span></button>
+                    <button class="option-btn disabled-option" disabled><span data-i18n="step7NorthAmerica">North America</span> <span class="locked">🔒</span></button>
+                    <button class="option-btn disabled-option" disabled><span data-i18n="step7SouthAmerica">South America</span> <span class="locked">🔒</span></button>
+                    <button class="option-btn disabled-option" disabled><span data-i18n="step7Oceania">Oceania</span> <span class="locked">🔒</span></button>
+                    <button class="option-btn disabled-option" disabled><span data-i18n="step7Antarctica">Antarctica</span> <span class="locked">🔒</span></button>
                 </div>
-                <p class="hint-text">* Only Europe is available because we said so</p>
+                <p class="hint-text" data-i18n="step7Hint">* Only Europe is available because we said so</p>
             </div>
             <div class="nav-buttons">
-                <button class="btn btn-secondary" onclick="prevStep()">Previous</button>
-                <button class="btn btn-primary" onclick="nextStep()" id="next-7" disabled>Next</button>
+                <button class="btn btn-secondary" onclick="prevStep()" data-i18n="btnPrevious">Previous</button>
+                <button class="btn btn-primary" onclick="nextStep()" id="next-7" disabled data-i18n="btnNext">Next</button>
             </div>
         </div>
 
         <!-- Step 8: European Cities Selection -->
         <div class="question-slide" data-step="8">
             <div class="question-content">
-                <h2>Select the cities you want to visit</h2>
-                <p class="hint-text">All cities are pre-selected. Click to deselect any you don't want to visit.</p>
+                <h2 data-i18n="step8Question">Select the cities you want to visit</h2>
+                <p class="hint-text" data-i18n="step8Hint">All cities are pre-selected. Click to deselect any you don't want to visit.</p>
                 <div class="cities-grid" id="cities-grid">
                     <div class="city-card selected" data-city="paris" onclick="toggleCity(this)">
                         <img src="images/paris.png" alt="Paris">
@@ -215,45 +235,45 @@
                 </div>
             </div>
             <div class="nav-buttons">
-                <button class="btn btn-secondary" onclick="prevStep()">Previous</button>
-                <button class="btn btn-primary" onclick="nextStep()" id="next-8">Next</button>
+                <button class="btn btn-secondary" onclick="prevStep()" data-i18n="btnPrevious">Previous</button>
+                <button class="btn btn-primary" onclick="nextStep()" id="next-8" data-i18n="btnNext">Next</button>
             </div>
         </div>
 
         <!-- Step 9: Number of Travelers -->
         <div class="question-slide" data-step="9">
             <div class="question-content">
-                <h2>How many travelers?</h2>
+                <h2 data-i18n="step9Question">How many travelers?</h2>
                 <div class="options-container">
-                    <button class="option-btn" data-value="1-2" onclick="selectTravelers('1-2')">1-2</button>
-                    <button class="option-btn" data-value="2+" onclick="selectTravelers('2+')">2 or more</button>
+                    <button class="option-btn" data-value="1-2" onclick="selectTravelers('1-2')" data-i18n="step9Option1">1-2</button>
+                    <button class="option-btn" data-value="2+" onclick="selectTravelers('2+')" data-i18n="step9Option2">2 or more</button>
                 </div>
                 <div class="warning-message" id="travelers-warning" style="display: none;">
-                    <p>⚠️ Take into account Gallego Travel Inc does not cover this option and you will be redirected ⚠️</p>
-                    <p>(Just kidding, we'll continue anyway)</p>
+                    <p data-i18n="step9Warning1">⚠️ Take into account Gallego Travel Inc does not cover this option and you will be redirected ⚠️</p>
+                    <p data-i18n="step9Warning2">(Just kidding, we'll continue anyway)</p>
                 </div>
             </div>
             <div class="nav-buttons">
-                <button class="btn btn-secondary" onclick="prevStep()">Previous</button>
-                <button class="btn btn-primary" onclick="nextStep()" id="next-9" disabled>Next</button>
+                <button class="btn btn-secondary" onclick="prevStep()" data-i18n="btnPrevious">Previous</button>
+                <button class="btn btn-primary" onclick="nextStep()" id="next-9" disabled data-i18n="btnNext">Next</button>
             </div>
         </div>
 
         <!-- Step 10: Adventure Type -->
         <div class="question-slide" data-step="10">
             <div class="question-content">
-                <h2>Select your adventure type</h2>
+                <h2 data-i18n="step10Question">Select your adventure type</h2>
                 <div class="options-container">
                     <button class="option-btn adventure-btn selected" data-value="surprise" onclick="selectAdventure('surprise')">
-                        🎁 Surprise!
-                        <span class="option-subtext">Let us decide everything for you</span>
+                        <span data-i18n="step10Option">🎁 Surprise!</span>
+                        <span class="option-subtext" data-i18n="step10OptionSub">Let us decide everything for you</span>
                     </button>
                 </div>
-                <p class="hint-text">* This is your only option. Embrace the chaos.</p>
+                <p class="hint-text" data-i18n="step10Hint">* This is your only option. Embrace the chaos.</p>
             </div>
             <div class="nav-buttons">
-                <button class="btn btn-secondary" onclick="prevStep()">Previous</button>
-                <button class="btn btn-primary" onclick="finishQuestionnaire()" id="next-10">Finish</button>
+                <button class="btn btn-secondary" onclick="prevStep()" data-i18n="btnPrevious">Previous</button>
+                <button class="btn btn-primary" onclick="finishQuestionnaire()" id="next-10" data-i18n="btnFinish">Finish</button>
             </div>
         </div>
 
@@ -261,15 +281,16 @@
         <div class="question-slide" data-step="11">
             <div class="question-content final-content">
                 <div class="success-icon">🎉</div>
-                <h2>Thank you for completing the questionnaire!</h2>
-                <p class="final-message">You will receive an email in about 3 days with more details about your surprise adventure...</p>
-                <p class="final-message-small">...if our personnel is not too stressed out about the impending doom of exams.</p>
-                <p class="final-message-small">We appreciate your patience and your questionable life choices that led you here.</p>
-                <a href="index.html" class="btn btn-primary btn-large">Return to Main Page</a>
+                <h2 data-i18n="step11Title">Thank you for completing the questionnaire!</h2>
+                <p class="final-message" data-i18n="step11Message1">You will receive an email in about 3 days with more details about your surprise adventure...</p>
+                <p class="final-message-small" data-i18n="step11Message2">...if our personnel is not too stressed out about the impending doom of exams.</p>
+                <p class="final-message-small" data-i18n="step11Message3">We appreciate your patience and your questionable life choices that led you here.</p>
+                <a href="index.html" class="btn btn-primary btn-large" data-i18n="step11Button">Return to Main Page</a>
             </div>
         </div>
     </div>
 
+    <script src="js/translations.js"></script>
     <script src="js/questionnaire.js"></script>
 </body>
 </html>
