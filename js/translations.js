@@ -15,10 +15,10 @@ const translations = {
         
         // Mission Section
         missionTitle: "Our Mission",
-        missionText1: "At Gallego Travel Inc., we believe that the best adventures are the ones you don't plan. We're here to take the stress out of travel planning and inject a healthy dose of spontaneity into your life.",
-        missionText2: "Whether you're a meticulous planner who needs to loosen up or someone who just wants to burn money on last-minute trips, we've got you covered. Our team of semi-professional travel enthusiasts (when not stressed about exams) is dedicated to crafting unique experiences that will leave you wondering why you ever bothered planning trips yourself.",
-        missionText3: "Let us surprise you. Trust us, Barcelona is always the answer.",
-        
+        missionText1: "At Gallego Travel Inc., we believe the best adventures are the ones you don’t plan. We’re here to take the stress out of travel planning, inject a healthy dose of spontaneity into your life, and keep you sane when your family hits you with wildly specific present requests.",
+        missionText2: "Whether you’re gifting a surprise to yourself or someone else, we’ve got you covered. Think of us as your \"Surprise Me\" button for travel: you pick the vibe (and a budget that won’t destroy your Christmas presents), and we handle the rest—semi-professionally, and occasionally between exam-season breakdowns.",
+        missionText3: "Press \"Surprise Me.\" Trust us—Barcelona is always the answer.",
+
         // About Section
         aboutTitle: "Meet Our Team",
         founderName: "Gerard Parés Gallego",
